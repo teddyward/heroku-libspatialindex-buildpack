@@ -15,7 +15,6 @@ PROFILE_PATH="$BUILD_DIR/.profile.d/spatialindex.sh"
 
 mkdir -p $(dirname $PROFILE_PATH)
 mkdir -p $VENDOR_DIR
-mkdir -p "/app/vendor/spatialindex"
 
 function set-default-env (){
   echo "export $1=\$$1:/app/vendor/$2" >> $PROFILE_PATH
@@ -28,6 +27,7 @@ mv "$VENDOR_DIR/spatialindex-src-1.8.1" "$VENDOR_DIR/spatialindex"
 # FYI we do this and set the export path explicitly because we cannot assume all buildpacks copy this dir over
 # We need to also leave the vendor dir repo in place, as the current app vendor gets blown away and replaced with
 # what is in the build dir
+mkdir -p "/app/vendor/spatialindex"
 cp -R "$VENDOR_DIR/spatialindex" "/app/vendor/spatialindex"
 
 set-default-env PATH "spatialindex/bin"
